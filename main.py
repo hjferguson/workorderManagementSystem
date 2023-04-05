@@ -1,12 +1,11 @@
-#
-from WorkorderManager import WorkorderManager
-from Database import Database
+#Harlan Ferguson 101133838
+from Controller import Controller
+from model.Database import Database
+from view.GUI import GUI
 if __name__ == "__main__":
-    WM = WorkorderManager()
-    DB = Database()
-    WM.addWorkorder("2023-03-30","Harlan","224","Slow bathtub drain", "It takes a long time for the bathtub to drain. Can someone please come and take a look?")
-
-    print("This is a test")
-    WM.printAll()
-    print("-----------")
-    WM.printSelected("224")
+    db = Database()
+    controller = Controller(db)
+    gui = GUI(controller)
+    controller.run()
+    gui.mainloop()
+    
