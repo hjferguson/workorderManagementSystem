@@ -2,8 +2,7 @@
 
 <h3>What?</h3>
 
-This program was developed to be used in a building maintenance setting. The user can create and track repair workorders. Future updates can include 
-cost forecasting, flagging repeat units (potential trouble tennants), or track/remind of yearly maintenance. 
+This program was developed to be used in a building maintenance setting. The user can create and view repair workorders. Future updates can include tracking current/completed workorders, cost forecasting, flagging repeat units (potential trouble tennants), or track/remind of yearly maintenance. 
 
 
 <h3>Why?</h3>
