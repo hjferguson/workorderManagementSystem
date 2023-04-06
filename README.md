@@ -16,7 +16,7 @@ For this assignment I decided to use model-view-controller(MVC) for organizing t
 
 <h1>SET UP</h1>
 
-This program requires an external library called tkcalendar. So, there is a requirements.txt to help with installing the package
+This program requires an external library called tkcalendar. So, there is a requirements.txt to help with installing the package. For viewing the database, I used the sqlite extension in vscode. See here: https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite
 
 To set up:<br>
 1. Clone this repository.<br>
