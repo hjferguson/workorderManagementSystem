@@ -1,7 +1,8 @@
 import tkinter as tk
 class WorkorderFrame(tk.Frame):
-    def __init__(self, master=None, **kwargs):
+    def __init__(self, master=None, controller=None, **kwargs):
         super().__init__(master, **kwargs)
+        self.controller = controller
         self.create_widgets()
 
     def create_widgets(self):
@@ -42,15 +43,15 @@ class WorkorderFrame(tk.Frame):
         self.back_button.grid(row=6, column=0, columnspan=2)
 
     def submit_workorder(self):
-        # Get the data from the input fields and call the WorkorderManager method to create a new workorder
+        # Get the data from the input fields
         sub_date = self.sub_date_entry.get()
         member = self.member_entry.get()
         unit = self.unit_entry.get()
         issue = self.issue_entry.get()
         comments = self.comments_entry.get()
 
-       
-        self.master.db.insert_workorder(sub_date, member, unit, issue, comments)
+       #insert into db
+        self.controller.db.addWorkorder(sub_date, member, unit, issue, comments)
 
         # Clear the input fields after submitting
         self.sub_date_entry.delete(0, tk.END)

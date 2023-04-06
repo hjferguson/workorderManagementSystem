@@ -5,6 +5,9 @@ class Database:
         self.conn = sql.connect("workorders.db") #hard coded this in instead of passing as a parameter because project scope is smol
         self.createTable()
     
+    #For the methods, I researched and found that you don't need to make a cursor object, this is done automatically with sqlite3 when
+    #execute is used on a connection object.
+
     def createTable(self): #added autoincrement to id to make unique
         self.conn.execute('''CREATE TABLE IF NOT EXISTS work_orders
                             (id INTEGER PRIMARY KEY AUTOINCREMENT, submission_date TEXT,

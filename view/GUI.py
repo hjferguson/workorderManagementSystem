@@ -8,9 +8,9 @@ class GUI(tk.Tk):
         self.controller = controller
         self.title("Workorder Management System")
         self.geometry("600x400")
-
+        #Gui has instances of the different frames. The packs/unpacks depending on button selected
         self.main_menu_frame = MainMenuFrame(self)
-        self.workorder_frame = WorkorderFrame(self)
+        self.workorder_frame = WorkorderFrame(self,controller)
 
         self.show_main_menu()
 
