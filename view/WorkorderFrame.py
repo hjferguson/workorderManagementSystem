@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import ttk
+from tkcalendar import DateEntry
 class WorkorderFrame(tk.Frame):
     def __init__(self, master=None, controller=None, **kwargs):
         super().__init__(master, **kwargs)
@@ -8,7 +10,8 @@ class WorkorderFrame(tk.Frame):
     def create_widgets(self):
         # Add your labels and input fields for entering workorder details
         self.sub_date_label = tk.Label(self, text="Submission Date:")
-        self.sub_date_entry = tk.Entry(self)
+        self.sub_date_entry = DateEntry(self, date_pattern='yyyy-mm-dd', width=12, background='darkblue', foreground='white', borderwidth=2)
+        
 
         self.member_label = tk.Label(self, text="Member:")
         self.member_entry = tk.Entry(self)
@@ -16,11 +19,14 @@ class WorkorderFrame(tk.Frame):
         self.unit_label = tk.Label(self, text="Unit:")
         self.unit_entry = tk.Entry(self)
 
+        #I wanted the potential issues to be in a drop down to reduce the chance of misspelling
+        #or redundancy.
+        ISSUES = ['Appliance','Eletrical','Plumbing','Painting','Drywall','Hardware','Other']
         self.issue_label = tk.Label(self, text="Issue:")
-        self.issue_entry = tk.Entry(self)
+        self.issue_entry = ttk.Combobox(self, values=ISSUES)
 
         self.comments_label = tk.Label(self, text="Comments:")
-        self.comments_entry = tk.Entry(self)
+        self.comments_entry = tk.Text(self,width=60, height=10)
 
         # Add a submit button
         self.submit_button = tk.Button(self, text="Submit", command=self.submit_workorder)
@@ -44,21 +50,22 @@ class WorkorderFrame(tk.Frame):
 
     def submit_workorder(self):
         # Get the data from the input fields
-        sub_date = self.sub_date_entry.get()
+        sub_date = self.sub_date_entry.get_date() # returns a datetime object
+        sub_date_string = sub_date.strftime("%Y-%m-%d")    # convert to a string to work with TEXT column in db
         member = self.member_entry.get()
         unit = self.unit_entry.get()
         issue = self.issue_entry.get()
-        comments = self.comments_entry.get()
+        comments = self.comments_entry.get("1.0", tk.END).strip()
 
        #insert into db
-        self.controller.db.addWorkorder(sub_date, member, unit, issue, comments)
+        self.controller.db.addWorkorder(sub_date_string, member, unit, issue, comments)
 
         # Clear the input fields after submitting
         self.sub_date_entry.delete(0, tk.END)
         self.member_entry.delete(0, tk.END)
         self.unit_entry.delete(0, tk.END)
         self.issue_entry.delete(0, tk.END)
-        self.comments_entry.delete(0, tk.END)
+        self.comments_entry.delete("1.0", tk.END)
 
         # Return to the main menu
         self.master.show_main_menu()

@@ -9,7 +9,7 @@ class MainMenuFrame(tk.Frame):
         # Set the command for each button to switch to the appropriate frame.
         self.menu_button_nw = tk.Button(self, text="Add Workorder", relief="raised",bg="green", command=self.master.show_workorder_frame)
         self.menu_button_nw.pack(pady=20) #unfortunately it is not pady, but padding - y axis...
-        self.menu_button_s = tk.Button(self, text="Search Workorder", relief="raised",bg="green")
+        self.menu_button_s = tk.Button(self, text="View Workorders", relief="raised",bg="green", command=self.master.show_workorder_list_frame)
         self.menu_button_s.pack(pady=20)
         #initial design has edit in main menu, but makes more sense to integrate it into search
         # self.menu_button_e = tk.Menubutton(self, text="Edit Workorder", relief="raised",bg="green")
