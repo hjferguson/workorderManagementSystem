@@ -18,20 +18,42 @@ class Database:
         self.conn.execute("INSERT INTO work_orders (submission_date, member, unit, issue, comments) VALUES (?,?,?,?,?)", (subDate, member,unit,issue,comments))
         self.conn.commit()
     
-    def searchWorkorderUnit(self,unit):
-        self.conn.execute("SELECT * FROM work_orders WHERE unit = ?", (unit,))
-        self.conn.commit()
-    
-    def searchWorkorderMember(self,member):
-        self.conn.execute("SELECT * FROM work_orders WHERE member = ?", (member,))
-        self.conn.commit()
+    #using cursor here because fetchall is a method of cursor class
+    def searchWorkorderUnit(self, unit):
+        cursor = self.conn.execute("SELECT * FROM work_orders WHERE unit = ?", (unit,))
+        rows = cursor.fetchall()
+        return rows
+
+    def searchWorkorderMember(self, member):
+            cursor = self.conn.execute("SELECT * FROM work_orders WHERE member = ?", (member,))
+            rows = cursor.fetchall()
+            return rows
+
     
     #after searching and finding workorder, edit it
-    def editWorkorder(self,subDate, member,unit,issue,comments):
-        self.conn.execute("UPDATE work_orders SET submission_date = ?, member = ?, unit = ?, issue = ?, comments = ? WHERE id = ?", (subDate, member,unit,issue,comments))
+    def update_workorder(self, workorder_id, sub_date, member, unit, issue, comments):
+        self.conn.execute('''UPDATE work_orders SET submission_date = ?, member = ?, unit = ?, issue = ?, comments = ? WHERE id = ?''', (sub_date, member, unit, issue, comments, workorder_id))
         self.conn.commit()
+        
+
     
     #after searching and finding workorder, delete it
-    def deleteWorkorder(self,subDate, member,unit,issue,comments):
+    def deleteWorkorder(self, id):
         self.conn.execute("DELETE FROM work_orders WHERE id = ?", (id,))
         self.conn.commit()
+
+    def get_all_workorders(self):
+        cursor = self.conn.execute("SELECT * FROM work_orders")
+        rows = cursor.fetchall()
+        return rows
+
+    def get_last_five_workorders(self):
+        cursor = self.conn.execute("SELECT * FROM work_orders ORDER BY id DESC LIMIT 5")
+        rows = cursor.fetchall()
+        return rows
+    
+    def get_workorder_by_id(self, id):
+        cursor = self.conn.execute("SELECT * FROM work_orders WHERE id = ?", (id,))
+        rows = cursor.fetchall()
+        return rows #returns a list of tuples
+
