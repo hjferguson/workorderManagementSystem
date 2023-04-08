@@ -14,4 +14,3 @@ class MainMenuFrame(tk.Frame):
         
         self.menu_button_exit = tk.Button(self, text="Exit", relief="raised",bg="red", command=self.quit)
         self.menu_button_exit.pack(pady=20)
-

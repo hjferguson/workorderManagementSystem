@@ -8,7 +8,6 @@ class WorkorderFrame(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        # Add your labels and input fields for entering workorder details
         self.sub_date_label = tk.Label(self, text="Submission Date:")
         self.sub_date_entry = DateEntry(self, date_pattern='yyyy-mm-dd', width=12, background='darkblue', foreground='white', borderwidth=2)
         
@@ -33,7 +32,7 @@ class WorkorderFrame(tk.Frame):
         # Add a back button
         self.back_button = tk.Button(self, text="Back", command=self.master.show_main_menu)
 
-        # Use the grid layout manager to position the widgets
+        #Using the grid layout manager to position the widgets
         self.sub_date_label.grid(row=0, column=0, padx=5, pady=5)
         self.sub_date_entry.grid(row=0, column=1, padx=5, pady=5)
         self.member_label.grid(row=1, column=0, padx=5, pady=5)
@@ -65,10 +64,3 @@ class WorkorderFrame(tk.Frame):
         self.unit_entry.delete(0, tk.END)
         self.issue_entry.delete(0, tk.END)
         self.comments_entry.delete("1.0", tk.END)
-
-        # Return to the main menu
-
-        #Not sure if I want to just blank the fields and let the user return to menu manually, or to automatically take them to menu...
-        #because if i dont take back to menu, no indication that the workorder was submitted. and i dont want to program another UI element 😭
-
-        #self.master.show_main_menu()

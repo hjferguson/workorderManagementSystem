@@ -6,7 +6,7 @@ class Database:
         self.createTable()
     
     #For the methods, I researched and found that you don't need to make a cursor object, this is done automatically with sqlite3 when
-    #execute is used on a connection object.
+    #execute is used on a connection object. **except when using fetchall... method of cursor class
 
     def createTable(self): #added autoincrement to id to make unique
         self.conn.execute('''CREATE TABLE IF NOT EXISTS work_orders
@@ -18,7 +18,6 @@ class Database:
         self.conn.execute("INSERT INTO work_orders (submission_date, member, unit, issue, comments) VALUES (?,?,?,?,?)", (subDate, member,unit,issue,comments))
         self.conn.commit()
     
-    #using cursor here because fetchall is a method of cursor class
     def searchWorkorderUnit(self, unit):
         cursor = self.conn.execute("SELECT * FROM work_orders WHERE unit = ?", (unit,))
         rows = cursor.fetchall()
@@ -29,14 +28,10 @@ class Database:
             rows = cursor.fetchall()
             return rows
 
-    
-    #after searching and finding workorder, edit it
     def update_workorder(self, workorder_id, sub_date, member, unit, issue, comments):
         self.conn.execute('''UPDATE work_orders SET submission_date = ?, member = ?, unit = ?, issue = ?, comments = ? WHERE id = ?''', (sub_date, member, unit, issue, comments, workorder_id))
         self.conn.commit()
         
-
-    
     #after searching and finding workorder, delete it
     def deleteWorkorder(self, id):
         self.conn.execute("DELETE FROM work_orders WHERE id = ?", (id,))
@@ -56,4 +51,3 @@ class Database:
         cursor = self.conn.execute("SELECT * FROM work_orders WHERE id = ?", (id,))
         rows = cursor.fetchall()
         return rows #returns a list of tuples
-
